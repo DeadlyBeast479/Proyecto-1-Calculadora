@@ -1,0 +1,33 @@
+LIBRARY IEEE;
+USE ieee.std_logic_1164.all;
+
+ENTITY decoderSSEG IS
+    PORT(
+        x : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+        y : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+    );
+END decoderSSEG;
+
+ARCHITECTURE behavioral OF decoderSSEG IS
+BEGIN
+
+    WITH x SELECT
+        y <= "11000000" WHEN "0000",
+             "11111001" WHEN "0001",
+             "10100100" WHEN "0010",
+             "10110000" WHEN "0011",
+             "10011001" WHEN "0100",
+             "10010010" WHEN "0101",
+             "10000010" WHEN "0110",
+             "11111000" WHEN "0111",
+             "10000000" WHEN "1000",
+             "10010000" WHEN "1001",
+             "10001000" WHEN "1010",
+             "10000011" WHEN "1011",
+             "11000110" WHEN "1100",
+             "10100001" WHEN "1101",
+             "10000110" WHEN "1110",
+             "10001110" WHEN "1111",
+             "10000110" WHEN OTHERS;
+
+END behavioral;
