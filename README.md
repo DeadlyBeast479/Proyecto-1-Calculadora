@@ -1,4 +1,4 @@
-# Proyecto 1 - Calculadora Digital
+# Proyecto 1 - Calculadora
 
 Proyecto de Diseño de Sistemas Digitales.
 
