@@ -11,6 +11,8 @@ END BCD;
 
 ARCHITECTURE behavioral OF BCD IS
 
+    SIGNAL bcd_result : STD_LOGIC_VECTOR(15 DOWNTO 0);
+
     FUNCTION ADD3(x : STD_LOGIC_VECTOR(3 DOWNTO 0))
     RETURN STD_LOGIC_VECTOR IS
     BEGIN
@@ -24,12 +26,14 @@ ARCHITECTURE behavioral OF BCD IS
         END CASE;
     END FUNCTION;
 
-BEGIN
+    FUNCTION BIN2BCD(x : STD_LOGIC_VECTOR(7 DOWNTO 0))
+    RETURN STD_LOGIC_VECTOR IS
 
-    PROCESS(bin)
         VARIABLE bcd : STD_LOGIC_VECTOR(15 DOWNTO 0);
+
     BEGIN
-        bcd := "00000000" & bin;
+
+        bcd := "00000000" & x;
 
         FOR i IN 0 TO 7 LOOP
 
@@ -38,7 +42,9 @@ BEGIN
                bcd(15 DOWNTO 12) = "0111" OR
                bcd(15 DOWNTO 12) = "1000" OR
                bcd(15 DOWNTO 12) = "1001" THEN
+
                 bcd(15 DOWNTO 12) := ADD3(bcd(15 DOWNTO 12));
+
             END IF;
 
             IF bcd(11 DOWNTO 8) = "0101" OR
@@ -46,16 +52,24 @@ BEGIN
                bcd(11 DOWNTO 8) = "0111" OR
                bcd(11 DOWNTO 8) = "1000" OR
                bcd(11 DOWNTO 8) = "1001" THEN
+
                 bcd(11 DOWNTO 8) := ADD3(bcd(11 DOWNTO 8));
+
             END IF;
 
             bcd := bcd(14 DOWNTO 0) & '0';
 
         END LOOP;
 
-        decenas  <= bcd(15 DOWNTO 12);
-        unidades <= bcd(11 DOWNTO 8);
+        RETURN bcd;
 
-    END PROCESS;
+    END FUNCTION;
 
-END behavioral;
+BEGIN
+
+    bcd_result <= BIN2BCD(bin);
+
+    decenas  <= bcd_result(15 DOWNTO 12);
+    unidades <= bcd_result(11 DOWNTO 8);
+
+END ARCHITECTURE behavioral;
