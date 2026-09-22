@@ -20,7 +20,7 @@ BEGIN
         RS <= RSum  WHEN "00",
               RSub  WHEN "01",
               RMult WHEN "10",
-              "00000000" WHEN "11";
+              "00000000" WHEN OTHERS;
 				  
 		  RI <= '1' WHEN sel = "11" ELSE '0';
 
