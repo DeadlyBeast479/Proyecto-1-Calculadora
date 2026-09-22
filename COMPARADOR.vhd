@@ -14,23 +14,8 @@ END ENTITY comparador;
 ARCHITECTURE behavioral OF comparador IS
 BEGIN
 
-    PROCESS(A, B)
-    BEGIN
-        IF A > B THEN
-            mayor <= '1';
-            igual <= '0';
-            menor <= '0';
-
-        ELSIF A = B THEN
-            mayor <= '0';
-            igual <= '1';
-            menor <= '0';
-
-        ELSE
-            mayor <= '0';
-            igual <= '0';
-            menor <= '1';
-        END IF;
-    END PROCESS;
+    mayor <= '1' WHEN A > B ELSE '0';
+    igual <= '1' WHEN A = B ELSE '0';
+    menor <= '1' WHEN A < B ELSE '0';
 
 END ARCHITECTURE behavioral;
